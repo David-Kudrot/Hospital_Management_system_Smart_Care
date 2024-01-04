@@ -36,8 +36,8 @@ const getServiceData = (services) => {
 
 
 
-const getDoctor = () => {
-    fetch("https://testing-8az5.onrender.com/doctor/list/")
+const getDoctor = (value) => {
+    fetch(`https://testing-8az5.onrender.com/doctor/list/?search=${value ? value : ""}`)// hoi value hobe nahole empty string hobe
     .then(response => response.json())
     .then(data => doctorDetails(data?.results));// ? optional chaining error handle korte use kora hoi
 }
@@ -47,7 +47,7 @@ const getDoctor = () => {
 const doctorDetails = (result) => {
     // console.log(result)
     result.forEach((data) => {
-        console.log(data)
+        // console.log(data)
         const parent = document.getElementById("card-doc")
         let div = document.createElement("div")
         div.classList.add("card", "m-3", "shadow-lg", "rounded-5","bg-body-secondary", "border-0", "custom-doc-card")
@@ -58,9 +58,10 @@ const doctorDetails = (result) => {
             <div class="card-body pt-0">
                 <h5 class="card-title">${data.full_name}</h5>
                 ${data.specialization.map(x => {
-                    return `<a href='#' class='btn btn-success btn-sm'>${x}</a>`
+                    return `<a href='#' class='bg-warning p-1 text-black rounded-2  text-decoration-none btn-sm my-1'>${x}</a>`
                 } )}
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <br>
+                <a href="#" class="btn btn-primary mx-auto">Details</a>
             </div>
         `;
         parent.appendChild(div);
@@ -68,5 +69,57 @@ const doctorDetails = (result) => {
 }
 
 
-getDoctor()
+
+const doctorDesignation = () => {
+    fetch("https://testing-8az5.onrender.com/doctor/designation/")
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data);
+        data.forEach((item) => {
+            // console.log(item.name);
+            const parent = document.getElementById("drop-desig");
+            let li = document.createElement("li");
+            li.classList.add("dropdown-item");
+            li.innerHTML = `
+                ${item?.name}
+            `;
+            parent.appendChild(li);
+        })
+    })
+}
+const doctorSpecialization = () => {
+    fetch("https://testing-8az5.onrender.com/doctor/specialization/")
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data);
+        data.forEach((item) => {
+            // console.log(item.name);
+            const parent = document.getElementById("drop-spe");
+            let li = document.createElement("li");
+            li.classList.add("dropdown-item");
+            li.innerHTML = `
+                ${item?.name}
+            `;
+            parent.appendChild(li);
+        })
+    })
+}
+
+
+
+// search doctor
+const searchDoctor = () => {
+    const value = document.getElementById("searchBox").value;
+    // console.log(value);
+    getDoctor(value);
+}
+
+
+
+
+
+
+doctorSpecialization()
+doctorDesignation()
+
 serviceData()

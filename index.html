@@ -149,50 +149,40 @@
             <div class="filter-items ps-5">
               <h1>Filters</h1>
               <!-- dropdown -->
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle rounded-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown link
+              <div class="dropdown my-2">
+                <a class="btn btn-info fw-bold dropdown-toggle rounded-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Designation
                 </a>
               
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <ul class="dropdown-menu bg-transparent py-0" id="drop-desig">
+                  <!-- data loading from API by js -->
+                </ul>
+              </div>
+              <div class="dropdown my-2">
+                <a class="btn btn-info fw-bold dropdown-toggle rounded-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  specialization
+                </a>
+              
+                <ul class="dropdown-menu bg-transparent py-0" id="drop-spe">
+                  <!-- data loading from API by js -->
                 </ul>
               </div>
             </div>
           </div>
+
+
           <div class="col-md-9 col-sm-9">
             <div class="doctor-details">
               <div class="search-box d-flex justify-content-center flex-wrap">
-                <input type="text" placeholder="search..." class="rounded-5 px-3 py-2 border-1 fs-6 ">
-                <a class="btn btn-success">Search</a>
+                <input id="searchBox" type="text" placeholder="Search doctor..." class="rounded-5 px-3 py-2 border-1 fs-6 ">
+                <a class="btn btn-success" onclick="searchDoctor()">Search</a>
               </div>
 
 
                 <!-- cards -->
                 <div class="card-doc d-flex flex-wrap justify-content-center" id="card-doc">
                   
-                  <div class="card m-3 shadow-lg rounded-5 bg-body-secondary border-0" style="width: 14rem;">
-                    <div class="img-wrapper d-flex justify-content-center">
-                      <img src="Images/girl.png" class="card-img-top img-fluid p-3" alt="...">
-                    </div>
-                    <div class="card-body pt-0">
-                      <h5 class="card-title">Sample Doctor</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-                  <div class="card m-3 shadow-lg rounded-5 bg-body-secondary border-0" style="width: 14rem;">
-                    <div class="img-wrapper d-flex justify-content-center">
-                      <img src="Images/girl.png" class="card-img-top img-fluid p-3" alt="...">
-                    </div>
-                    <div class="card-body pt-0">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
+                  <!-- // api theke data load hobe by js -->
                   
                 </div>
               </div>
