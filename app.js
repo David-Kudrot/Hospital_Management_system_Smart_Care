@@ -35,19 +35,50 @@ const getServiceData = (services) => {
 
 
 
-
+// ? optional chaining error handle korte use kora hoi
 const getDoctor = (value) => {
+    // console.log(value)
+    document.getElementById("card-doc").innerHTML = ""; // data load korar age jeno box clear hoye jai
+    const s = document.getElementById("spinner")
+    if (s){
+        document.getElementById("spinner").style.display = "block";
+    }
     fetch(`https://testing-8az5.onrender.com/doctor/list/?search=${value ? value : ""}`)// hoi value hobe nahole empty string hobe
     .then(response => response.json())
-    .then(data => doctorDetails(data?.results));// ? optional chaining error handle korte use kora hoi
+    .then(data => {
+        // doctorDetails(data?.results);
+        console.log(data.results)
+        if(data.results.length > 0)
+        {
+            const  s = document.getElementById("spinner")
+            const  n = document.getElementById("nodata")
+            if(n && s){
+                document.getElementById("spinner").style.display = "none";
+                document.getElementById("nodata").style.display = "none";
+                doctorDetails(data?.results);
+            }
+        }
+        else
+        {
+            const  s = document.getElementById("spinner")
+            const  n = document.getElementById("nodata")
+            if(n && s){
+                document.getElementById("card-doc").innerHTML = "";
+                document.getElementById("spinner").style.display = "none";
+                document.getElementById("nodata").style.display = "block";
+            }
+
+        }
+        
+    });
 }
 
 
 
 const doctorDetails = (result) => {
-    // console.log(result)
+    console.log(result)
     result.forEach((data) => {
-        // console.log(data)
+        console.log(data)
         const parent = document.getElementById("card-doc")
         let div = document.createElement("div")
         div.classList.add("card", "m-3", "shadow-lg", "rounded-5","bg-body-secondary", "border-0", "custom-doc-card")
@@ -58,10 +89,10 @@ const doctorDetails = (result) => {
             <div class="card-body pt-0">
                 <h5 class="card-title">${data.full_name}</h5>
                 ${data.specialization.map(x => {
-                    return `<a href='#' class='bg-warning p-1 text-black rounded-2  text-decoration-none btn-sm my-1'>${x}</a>`
+                    return `<a href='#' class='bg-warning p-1 text-black rounded-2  text-decoration-none btn-sm ms-2'>${x}</a>`
                 } )}
                 <br>
-                <a href="#" class="btn btn-primary mx-auto">Details</a>
+                <a href="#" class="btn btn-primary mx-auto btn-sm mt-2">Details</a>
             </div>
         `;
         parent.appendChild(div);
@@ -81,7 +112,7 @@ const doctorDesignation = () => {
             let li = document.createElement("li");
             li.classList.add("dropdown-item");
             li.innerHTML = `
-                ${item?.name}
+            <li onclick="getDoctor('${item?.name}')">${item?.name}</li>
             `;
             parent.appendChild(li);
         })
@@ -97,8 +128,9 @@ const doctorSpecialization = () => {
             const parent = document.getElementById("drop-spe");
             let li = document.createElement("li");
             li.classList.add("dropdown-item");
+            // li die doctor filter hoye jabe tai ekhaen function k call kora holo
             li.innerHTML = `
-                ${item?.name}
+                <li onclick="getDoctor('${item?.name}')">${item?.name}</li>
             `;
             parent.appendChild(li);
         })
